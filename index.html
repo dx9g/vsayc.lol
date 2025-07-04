@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>redirecting...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      background-color: black;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #text {
+      font-size: 2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid white;
+      animation: blinkCursor 0.7s infinite;
+    }
+
+    @keyframes blinkCursor {
+      0%, 50% { border-color: white; }
+      50.01%, 100% { border-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <div id="text">redirecting...</div>
+
+  <script>
+    const words = ["redirecting...", "larped.cc", "@2to", "@xei"];
+    const textElement = document.getElementById("text");
+    let currentWord = 0;
+    let currentChar = 0;
+    let isDeleting = false;
+    let loopDelay = 1000;
+
+    function typeEffect() {
+      let fullWord = words[currentWord];
+      let displayedText = isDeleting 
+                          ? fullWord.substring(0, currentChar--) 
+                          : fullWord.substring(0, currentChar++);
+
+      textElement.textContent = displayedText;
+      document.title = displayedText;
+
+      if (!isDeleting && currentChar === fullWord.length + 1) {
+        isDeleting = true;
+        setTimeout(typeEffect, loopDelay);
+      } else if (isDeleting && currentChar === 0) {
+        isDeleting = false;
+        currentWord = (currentWord + 1) % words.length;
+        setTimeout(typeEffect, 200);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 50 : 90);
+      }
+    }
+
+    // Start typing animation
+    typeEffect();
+
+    // Redirect after a delay
+    setTimeout(() => {
+      window.location.href = "https://fakecrime.bio/xei";
+    }, 5000); // You can change this to a shorter/longer duration
+  </script>
+</body>
+</html>
